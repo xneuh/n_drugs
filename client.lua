@@ -5,6 +5,7 @@ local isInMarker = false
 local isSpawned = false
 local timeLeft = nil
 local pedCoords = GetEntityCoords(GetPlayerPed(-1))
+local playerPed = GetPlayerPed(-1)
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
@@ -43,7 +44,7 @@ Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
         if timeLeft ~= nil then
-            local coords = GetEntityCoords(PlayerPedId())
+            local coords = GetEntityCoords(playerPed)
             DrawText3D(coords.x, coords.y, coords.z + 0.1, timeLeft .. '~g~%', 0.4)
         end
     end
@@ -100,9 +101,9 @@ CreateThread(function()
 
 
         for k,v in pairs(Config.Zones) do
-            if(GetDistanceBetweenCoords(GetEntityCoords(GetPlayerPed(-1)), v.x, v.y, v.z, true) < 10) then
+            if(GetDistanceBetweenCoords(GetEntityCoords(playerPed), v.x, v.y, v.z, true) < 10) then
                DrawMarker(1, v.x, v.y, v.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.7, 4.7, 1.1, 70, 163, 76, 50, false, false, 0, nil, nil, false)
-               if(GetDistanceBetweenCoords(GetEntityCoords(GetPlayerPed(-1)), v.x, v.y, v.z, false) < 2) then
+               if(GetDistanceBetweenCoords(GetEntityCoords(playerPed), v.x, v.y, v.z, false) < 2) then
                     isInMarker = true
                     currentZone = k
                     --print(k)    
@@ -141,7 +142,7 @@ CreateThread(function()
             if IsControlJustPressed(0, 38) then
                 FreezeEntityPosition(PlayerPedId(), true)
                 procent(25, function()
-                    ClearPedTasksImmediately(GetPlayerPed(-1))
+                    ClearPedTasksImmediately(playerPed)
                     TriggerServerEvent('ace_drugs:meth', "Collecting")
                     FreezeEntityPosition(PlayerPedId(), false)
                 end)
@@ -153,7 +154,7 @@ CreateThread(function()
             if IsControlJustPressed(0, 38) then
                 FreezeEntityPosition(PlayerPedId(), true)
                 procent(25, function()
-                    ClearPedTasksImmediately(GetPlayerPed(-1))
+                    ClearPedTasksImmediately(playerPed)
                     TriggerServerEvent('ace_drugs:meth', "Transform")
                     FreezeEntityPosition(PlayerPedId(), false)
                 end)
@@ -170,7 +171,7 @@ CreateThread(function()
             if IsControlJustPressed(0, 38) then
                 FreezeEntityPosition(PlayerPedId(), true)
                 procent(65, function()
-                    ClearPedTasksImmediately(GetPlayerPed(-1))
+                    ClearPedTasksImmediately(playerPed)
                     TriggerServerEvent('ace_drugs:chemikalia', "Mieszanie")
                     FreezeEntityPosition(PlayerPedId(), false)
                 end)
@@ -185,7 +186,7 @@ CreateThread(function()
             if IsControlJustPressed(0, 38) then
                 FreezeEntityPosition(PlayerPedId(), true)
                 procent(65, function()
-                    ClearPedTasksImmediately(GetPlayerPed(-1))
+                    ClearPedTasksImmediately(playerPed)
                     TriggerServerEvent('ace_drugs:coke', "Collecting")
                     FreezeEntityPosition(PlayerPedId(), false)
                 end)
@@ -196,7 +197,7 @@ CreateThread(function()
             if IsControlJustPressed(0, 38) then
             FreezeEntityPosition(PlayerPedId(), true)
             procent(5, function()
-                ClearPedTasksImmediately(GetPlayerPed(-1))
+                ClearPedTasksImmediately(playerPed)
                 TriggerServerEvent('ace_drugs:coke', "Transform")
                 FreezeEntityPosition(PlayerPedId(), false)
                 end)
