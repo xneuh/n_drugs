@@ -8,8 +8,7 @@ Citizen.CreateThread(function()
 end)
 
 
-RegisterServerEvent("ace_drugs:coke")
-AddEventHandler("ace_drugs:coke", function(type)
+RegisterServerEvent("ace_drugs:coke", function(type)
 	local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
 	local cokeCount = math.random(1, 7)
@@ -39,30 +38,19 @@ AddEventHandler("ace_drugs:coke", function(type)
 end)
 
 
-RegisterServerEvent('ace_drugs:chemikalia')
-AddEventHandler('ace_drugs:chemikalia', function(type)
+RegisterServerEvent('ace_drugs:chemikalia', function(type)
 	local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
 	local miszankoChance = math.random(1, 4)
 
-	if type == "Mieszanie" and xPlayer.getInventoryItem("chem1_1").count >= 5 and xPlayer.getInventoryItem("chem1_2").count >= 5 then
-		xPlayer.showNotification('Wymieszano Chemikalia', 'poprawne', 'NARKOTYKI')
-		xPlayer.removeInventoryItem("chem1_1", 5)
-		xPlayer.removeInventoryItem("chem1_2", 5)
-		xPlayer.addInventoryItem("chem1_3", 10)
-	else if type == "Mieszanie" and xPlayer.getInventoryItem("chem1_1").count < 5 or xPlayer.getInventoryItem("chem1_2").count < 5 or xPlayer.getInventoryItem("chem1_3") >= 100 then
-		--xPlayer.removeInventoryItem("chem1_3", 222)
-		xPlayer.showNotification('Nie posiadasz wystarczającej ilośći chemikaliów aby je wymieszać', 'warning', 'NARKOTYKI')
-	else if type == "Mieszanie" and xPlayer.getInventoryItem("chem1_1").count >= 5 and xPlayer.getInventoryItem("chem1_2").count >= 5 and miszankoChance == 1 then
-		xPlayer.showNotification('Przy mieszaniu Chemikaliów poparzyłeś się i wylałes część z nich', 'niepoprawny', 'NARKOTYKI')
-		--xPlayer.removeInventoryItem("chem1_3", 222)
-			end	
-		end
+	if(type == "Mieszanie") then 
+		if(xPlayer.getInventoryItem("chem"))
 	end
+
+
 end)
 
-RegisterServerEvent("ace_drugs:meth")
-AddEventHandler("ace_drugs:meth", function(type)
+RegisterServerEvent("ace_drugs:meth", function(type)
 	local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
 	local methCount = math.random(1, 4)
