@@ -1,11 +1,11 @@
 ESX = nil
+local playerPed = PlayerPedId()
 local currentZone = nil
 local notifyText = nil
 local isInMarker = false
 local isSpawned = false
 local timeLeft = nil
-local pedCoords = GetEntityCoords(GetPlayerPed(-1))
-local playerPed = GetPlayerPed(-1)
+local pedCoords = GetEntityCoords(playerPed)
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
@@ -82,7 +82,7 @@ end
 RegisterNetEvent('dragi:oparzenie')
 AddEventHandler('dragi:oparzenie', function()
     for i=1,4 do
-    SetEntityHealth(PlayerPedId(), GetEntityHealth(PlayerPedId()) - 5)
+    SetEntityHealth(playerPed, GetEntityHealth(playerPed) - 5)
     end
 end)
 
@@ -106,8 +106,6 @@ CreateThread(function()
                if(GetDistanceBetweenCoords(GetEntityCoords(playerPed), v.x, v.y, v.z, false) < 2) then
                     isInMarker = true
                     currentZone = k
-                    --print(k)    
-                    --print(GetEntityHealth(PlayerPedId()))
                else
                 currentZone = nil
                 isInMarker = false
@@ -140,11 +138,11 @@ CreateThread(function()
         if currentZone == 'methCollecting' then
             notifyText = "~y~Wciśnij ~INPUT_PICKUP~ aby rozpocząć gotowanie Metamfetaminy"
             if IsControlJustPressed(0, 38) then
-                FreezeEntityPosition(PlayerPedId(), true)
+                FreezeEntityPosition(playerPed, true)
                 procent(25, function()
                     ClearPedTasksImmediately(playerPed)
                     TriggerServerEvent('ace_drugs:meth', "Collecting")
-                    FreezeEntityPosition(PlayerPedId(), false)
+                    FreezeEntityPosition(playerPed, false)
                 end)
             end
         end
@@ -152,11 +150,11 @@ CreateThread(function()
         if currentZone == 'methPrzerobka' then
             notifyText = "~y~Wciśnij ~INPUT_PICKUP~ aby rozpocząć działkowanie Metamfetaminy"
             if IsControlJustPressed(0, 38) then
-                FreezeEntityPosition(PlayerPedId(), true)
+                FreezeEntityPosition(playerPed, true)
                 procent(25, function()
                     ClearPedTasksImmediately(playerPed)
                     TriggerServerEvent('ace_drugs:meth', "Transform")
-                    FreezeEntityPosition(PlayerPedId(), false)
+                    FreezeEntityPosition(playerPed, false)
                 end)
             end
         end
@@ -169,11 +167,11 @@ CreateThread(function()
             notifyText = "~y~Wciśnij ~INPUT_PICKUP~ aby rozpocząć mieszanie Chemikaliów"
             
             if IsControlJustPressed(0, 38) then
-                FreezeEntityPosition(PlayerPedId(), true)
+                FreezeEntityPosition(playerPed, true)
                 procent(65, function()
                     ClearPedTasksImmediately(playerPed)
                     TriggerServerEvent('ace_drugs:chemikalia', "Mieszanie")
-                    FreezeEntityPosition(PlayerPedId(), false)
+                    FreezeEntityPosition(playerPed, false)
                 end)
             end
         end
@@ -184,22 +182,22 @@ CreateThread(function()
         if currentZone == "cokeCollecting" then
             notifyText = "~y~Wciśnij ~INPUT_PICKUP~ aby rozpocząć zbieranie Lisci Kokainy"
             if IsControlJustPressed(0, 38) then
-                FreezeEntityPosition(PlayerPedId(), true)
+                FreezeEntityPosition(playerPed, true)
                 procent(65, function()
                     ClearPedTasksImmediately(playerPed)
                     TriggerServerEvent('ace_drugs:coke', "Collecting")
-                    FreezeEntityPosition(PlayerPedId(), false)
+                    FreezeEntityPosition(playerPed, false)
                 end)
             end
         end
         if currentZone == "cokePrzerobka" then
             notifyText = "~y~Wciśnij ~INPUT_PICKUP~ aby rozpocząć przerabianie Liści Kokainy"
             if IsControlJustPressed(0, 38) then
-            FreezeEntityPosition(PlayerPedId(), true)
+            FreezeEntityPosition(playerPed, true)
             procent(5, function()
                 ClearPedTasksImmediately(playerPed)
                 TriggerServerEvent('ace_drugs:coke', "Transform")
-                FreezeEntityPosition(PlayerPedId(), false)
+                FreezeEntityPosition(playerPed, false)
                 end)
             end
         end
